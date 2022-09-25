@@ -57,6 +57,18 @@ class TestCatalog(unittest.TestCase):
         kinase1 = Protein("3C", "tran", "Homo", "200", True, "3")
         my_list_kinases = [kinase1]
         my_catalog = Catalog(my_list_kinases)
-        self.assertEqual(my_catalog.generate_headers(), "--PDBcode--          --Classification--   --Organism--         "
-                                                        "--YearDeposited--    --ManuallyCrurated-- --AtomCount--        ")
+        self.assertEqual(my_catalog.generate_headers(), "--PDBcode--           --Classification--    --Organism--          "
+                                                        "--YearDeposited--     --ManuallyCrurated--  --AtomCount--         ")
+
+    def test__str__(self):
+        kinase1 = Protein("3C", "tran", "Homo", "200", True, "3")
+        my_list_kinases = [kinase1]
+        my_catalog = Catalog(my_list_kinases)
+        self.assertEqual(
+            my_catalog.__str__(),
+             "--PDBcode--           --Classification--    --Organism--          "
+             "--YearDeposited--     --ManuallyCrurated--  --AtomCount--         \n"
+             "3C                    tran                  Homo                  "
+             "200                   True                  3                     \n"
+        )
 

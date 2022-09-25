@@ -22,32 +22,31 @@ class Catalog:
     def max_spacing_for_all_proteins(self):
         max_spacing_each_protein = []
         for protein in self.__proteins:
-            max_spacing = max(
-               len(protein.get_pdb_code()),
-               len(protein.get_classification()),
-               len(protein.get_organism()),
-               len(protein.get_year_deposited()),
-               len(str(protein.get_manually_curated())),
-               len(protein.get_atom_count())
-            )
+            max_spacing = protein.get_max_spacing()
             max_spacing_each_protein.append(max_spacing)
         overall_max_spacing = max(max_spacing_each_protein)
         return overall_max_spacing
 
     def max_spacing_headers(self):
-        i = 0
         max_space_header = 0
-        while i < len(Catalog.headers):
-            if len(Catalog.headers[i]) > max_space_header:
-                max_space_header = len(Catalog.headers[i])
-            i += 1
+        for header in Catalog.headers:
+            if len(header) > max_space_header:
+                max_space_header = len(header)
         return max_space_header
 
+    def __overall_max_spacing__(self):
+        overall_max_spacing = max(self.max_spacing_headers(), self.max_spacing_for_all_proteins()) + 2
+        return overall_max_spacing
+
     def generate_headers(self):
-        overall_max_spacing = max(self.max_spacing_headers(), self.max_spacing_for_all_proteins())
         headers_string = ""
-        i = 0
-        while i < len(Catalog.headers):
-            headers_string = headers_string + Catalog.headers[i].ljust(overall_max_spacing) + " "
-            i += 1
+        for header in Catalog.headers:
+            headers_string = headers_string + header.ljust(self.__overall_max_spacing__())
         return headers_string
+
+    def __str__(self):
+        s = self.generate_headers()
+        s = s + "\n"
+        for protein in self.__proteins:
+            s = s + protein.turn_to_string(self.__overall_max_spacing__()) + "\n"
+            return s
