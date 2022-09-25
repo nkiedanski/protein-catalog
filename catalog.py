@@ -5,3 +5,4 @@ class Catalog:
             if isinstance(protein, Protein) == False:
                 raise TypeError("Catalog not valid. All elements should be proteins")
         self.proteins = proteins
+
