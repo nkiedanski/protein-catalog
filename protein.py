@@ -77,4 +77,3 @@ class Protein:
         return self.turn_to_string(sep)
 
 
-
