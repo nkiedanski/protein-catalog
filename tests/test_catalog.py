@@ -72,3 +72,7 @@ class TestCatalog(unittest.TestCase):
              "200                   True                  3                     \n"
         )
 
+    def test_read_catalog(self):
+        my_catalog = Catalog.read_catalog("/Users/nicole/PycharmProjects/python-ii/test_read_catalog.txt")
+
+        self.assertEqual(len(my_catalog.get_proteins()), 2)

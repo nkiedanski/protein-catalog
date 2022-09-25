@@ -9,6 +9,7 @@ class Catalog:
             if not isinstance(protein, Protein):
                 raise TypeError("Catalog not valid. All elements should be proteins")
         self.__proteins = proteins
+        self.__filepath = None
 
 # getters and setters definition
     def get_proteins(self):
@@ -16,6 +17,12 @@ class Catalog:
 
     def set_proteins(self, updated_proteins):
         self.__proteins = updated_proteins
+
+    def get_filepath(self):
+        return self.__filepath
+
+    def set_filepath(self, new_filepath):
+        self.__filepath = new_filepath
 
 # other functions
 
@@ -50,3 +57,17 @@ class Catalog:
         for protein in self.__proteins:
             s = s + protein.turn_to_string(self.__overall_max_spacing__()) + "\n"
             return s
+
+    def read_catalog(filepath):
+        file = open(filepath, "r")
+        lines = file.readlines()
+        proteins = []
+        for line in lines:
+            s = line.replace("\n", "").split("|")
+            protein = Protein(s[0], s[1], s[2], s[3], bool(s[4]), s[5])
+            proteins.append(protein)
+        file.close()
+        new_catalog = Catalog(proteins)
+        new_catalog.set_filepath(filepath)
+        return new_catalog
+
