@@ -83,6 +83,21 @@ class TestProtein(unittest.TestCase):
         kinasa.set_atom_count("78")
         self.assertEqual(kinasa.get_atom_count(), "78")
 
+    def test_max_spacing(self):
+        kinasa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        self.assertEqual(kinasa.get_max_spacing(), 12)
+
+    def test_turn_to_string(self):
+
+        kinasa = Protein("3C", "tra", "Ho", "2", True, "357")
+        self.assertEqual("3C   tra  Ho   2    True 357  ", kinasa.turn_to_string(5))
+
+    def test_str_(self):
+
+        kinasa = Protein("3C", "tra", "Ho", "2", True, "357")
+        self.assertEqual("3C    tra   Ho    2     True  357   ", kinasa.__str__())
+
 
 if __name__ == '__main__':
     unittest.main()
+

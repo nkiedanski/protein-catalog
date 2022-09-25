@@ -11,7 +11,7 @@ class Protein:
         self.__manually_curated = manually_curated
         self.__atom_count = atom_count
 
-# DEFINO LOS SETTERS Y GETTES
+# getters and setter are defined
     def get_pdb_code(self):
         return self.__pdb_code
 
@@ -48,3 +48,33 @@ class Protein:
 
     def set_atom_count(self, new_ac):
         self.__atom_count = new_ac
+
+# other methods
+
+    def get_max_spacing(self):
+        max_spacing = max(
+            len(self.__pdb_code),
+            len(self.__classification),
+            len(self.__organism),
+            len(self.__year_deposited),
+            len(str(self.__manually_curated)),
+            len(self.__atom_count)
+        )
+        return max_spacing
+
+    def turn_to_string(self, spacing):
+        string = self.__pdb_code.ljust(spacing) \
+                 + self.__classification.ljust(spacing) \
+                 + self.__organism.ljust(spacing) \
+                 + self.__year_deposited.ljust(spacing) \
+                 + str(self.__manually_curated).ljust(spacing) \
+                 + self.__atom_count.ljust(spacing)
+
+        return string
+
+    def __str__(self):
+        sep = self.get_max_spacing() + 2
+        return self.turn_to_string(sep)
+
+
+
