@@ -81,3 +81,21 @@ class TestCatalog(unittest.TestCase):
         self.assertEqual(my_catalog.get_proteins()[1].get_year_deposited(), "2013-07-23")
         self.assertEqual(my_catalog.get_proteins()[1].get_manually_curated(), True)
         self.assertEqual(my_catalog.get_proteins()[1].get_atom_count(), "152")
+
+    def test_save_catalog(self):
+        kinase1 = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        my_list_kinases = [kinase1, kinase2]
+        my_catalog = Catalog(my_list_kinases)
+        my_catalog.save_catalog("/Users/nicole/PycharmProjects/python-ii/test_save_catalog")
+        new_catalog = Catalog.read_catalog("/Users/nicole/PycharmProjects/python-ii/test_save_catalog")
+        self.assertEqual(len(new_catalog.get_proteins()), 2)
+        self.assertEqual(new_catalog.get_proteins()[1].get_pdb_code(), "4LTR")
+        self.assertEqual(new_catalog.get_proteins()[0].get_classification(), "transferasa")
+        self.assertEqual(new_catalog.get_proteins()[0].get_organism(), "Homo sapiens")
+        self.assertEqual(new_catalog.get_proteins()[1].get_year_deposited(), "2013-07-23")
+        self.assertEqual(new_catalog.get_proteins()[1].get_manually_curated(), True)
+        self.assertEqual(new_catalog.get_proteins()[1].get_atom_count(), "152")
+        file = open("/Users/nicole/PycharmProjects/python-ii/test_save_catalog", "w")
+        file.write("")
+        file.close()

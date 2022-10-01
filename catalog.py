@@ -1,6 +1,7 @@
 from .protein import Protein
-class Catalog:
 
+
+class Catalog:
     headers = ["--PDBcode--", "--Classification--", "--Organism--", "--YearDeposited--", "--ManuallyCrurated--",
                "--AtomCount--"]
 
@@ -11,7 +12,7 @@ class Catalog:
         self.__proteins = proteins
         self.__filepath = None
 
-# getters and setters definition
+    # getters and setters definition
     def get_proteins(self):
         return self.__proteins
 
@@ -24,7 +25,7 @@ class Catalog:
     def set_filepath(self, new_filepath):
         self.__filepath = new_filepath
 
-# other functions
+    # other functions
 
     def max_spacing_for_all_proteins(self):
         max_spacing_each_protein = []
@@ -70,4 +71,16 @@ class Catalog:
         new_catalog = Catalog(proteins)
         new_catalog.set_filepath(filepath)
         return new_catalog
+
+    def save_catalog(self, filepath):
+        file = open(filepath, "w")
+        for i in range(0, len(self.__proteins)):
+            protein = self.__proteins[i]
+            string = protein.get_pdb_code() + "|" + protein.get_classification() + "|" + protein.get_organism() + "|" + \
+                     str(protein.get_year_deposited()) + "|" + str(protein.get_manually_curated()) + "|" + \
+                     str(protein.get_atom_count())
+            if i < len(self.__proteins)-1:
+                string = string + "\n"
+            file.write(string)
+        file.close()
 
