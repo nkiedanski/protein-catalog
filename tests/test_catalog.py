@@ -74,5 +74,10 @@ class TestCatalog(unittest.TestCase):
 
     def test_read_catalog(self):
         my_catalog = Catalog.read_catalog("/Users/nicole/PycharmProjects/python-ii/test_read_catalog.txt")
-
         self.assertEqual(len(my_catalog.get_proteins()), 2)
+        self.assertEqual(my_catalog.get_proteins()[0].get_pdb_code(), "3C49")
+        self.assertEqual(my_catalog.get_proteins()[0].get_classification(), "transferasa")
+        self.assertEqual(my_catalog.get_proteins()[0].get_organism(), "Homo sapiens")
+        self.assertEqual(my_catalog.get_proteins()[1].get_year_deposited(), "2013-07-23")
+        self.assertEqual(my_catalog.get_proteins()[1].get_manually_curated(), True)
+        self.assertEqual(my_catalog.get_proteins()[1].get_atom_count(), "152")
