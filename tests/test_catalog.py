@@ -99,3 +99,10 @@ class TestCatalog(unittest.TestCase):
         file = open("/Users/nicole/PycharmProjects/python-ii/test_save_catalog", "w")
         file.write("")
         file.close()
+
+    def test_add_protein(self):
+        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        my_list_kinases = []
+        my_catalog = Catalog(my_list_kinases)
+        my_catalog.add_protein(kinase2)
+        self.assertEqual(my_catalog.get_proteins(), [kinase2])

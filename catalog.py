@@ -84,3 +84,7 @@ class Catalog:
             file.write(string)
         file.close()
 
+    def add_protein(self, protein):
+        self.__proteins.append(protein)
+
+
