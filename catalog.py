@@ -88,3 +88,9 @@ class Catalog:
     def add_protein(self, protein):
         self.__proteins.append(protein)
 
+    def search_proteins(self, pdb_code):
+        proteins_found = []
+        for protein in self.__proteins:
+            if protein.get_pdb_code().startswith(pdb_code):
+                proteins_found.append(protein)
+        return proteins_found

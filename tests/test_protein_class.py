@@ -114,7 +114,6 @@ class TestProtein(unittest.TestCase):
         self.assertNotEqual(gama, delta)
 
 
-
 if __name__ == '__main__':
     unittest.main()
 

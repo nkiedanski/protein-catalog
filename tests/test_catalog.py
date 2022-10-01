@@ -107,3 +107,12 @@ class TestCatalog(unittest.TestCase):
         my_catalog.add_protein(kinase2)
         self.assertEqual(my_catalog.get_proteins(), [kinase2])
 
+    def test_search_protein(self):
+        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        kinase1 = Protein("4LMR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        my_list_kinases = [kinase2, kinase1]
+        my_catalog = Catalog(my_list_kinases)
+        self.assertEqual(my_catalog.search_proteins("4L"), [kinase2, kinase1])
+        self.assertEqual(my_catalog.search_proteins("MMM"), [])
+        self.assertEqual(my_catalog.search_proteins("4LMR"), [kinase1])
+
