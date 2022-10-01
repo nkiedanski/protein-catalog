@@ -76,4 +76,16 @@ class Protein:
         sep = self.get_max_spacing() + 2
         return self.turn_to_string(sep)
 
-
+    def __lt__(self, other):
+        result = False
+        if other is not None and isinstance (other, Protein):
+            result = self.__pdb_code < other.__pdb_code
+            if self.__pdb_code == other.__pdb_code:
+                result = self.__classification < other.__classification
+                if self.__classification == other.__classification:
+                    result = self.__organism < other.__organism
+                    if self.__organism == other.__organism:
+                        result = self.__year_deposited < other.__year_deposited
+                        if self.__year_deposited == other.__year_deposited:
+                            result = self.__atom_count < other.__atom_count
+        return result

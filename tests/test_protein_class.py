@@ -97,6 +97,14 @@ class TestProtein(unittest.TestCase):
         kinasa = Protein("3C", "tra", "Ho", "2", True, "357")
         self.assertEqual("3C    tra   Ho    2     True  357   ", kinasa.__str__())
 
+    def test_sort_proteins(self):
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "358")
+        beta = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        list = [alfa, beta]
+        list.sort()
+        self.assertEqual(list, [beta, alfa])
+        self.assertNotEqual(list, [alfa, beta])
+
 
 if __name__ == '__main__':
     unittest.main()
