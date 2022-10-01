@@ -106,3 +106,4 @@ class TestCatalog(unittest.TestCase):
         my_catalog = Catalog(my_list_kinases)
         my_catalog.add_protein(kinase2)
         self.assertEqual(my_catalog.get_proteins(), [kinase2])
+

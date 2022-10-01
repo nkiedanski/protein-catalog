@@ -55,6 +55,7 @@ class Catalog:
     def __str__(self):
         s = self.generate_headers()
         s = s + "\n"
+        self.__proteins.sort()
         for protein in self.__proteins:
             s = s + protein.turn_to_string(self.__overall_max_spacing__()) + "\n"
             return s
