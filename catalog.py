@@ -94,3 +94,11 @@ class Catalog:
             if protein.get_pdb_code().startswith(pdb_code):
                 proteins_found.append(protein)
         return proteins_found
+
+    def delete_protein(self, pdb_code):
+        protein_deleted = False
+        for protein in self.__proteins:
+            if protein.get_pdb_code() == pdb_code:
+                self.__proteins.remove(protein)
+                protein_deleted = True
+        return protein_deleted

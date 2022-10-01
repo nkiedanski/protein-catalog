@@ -116,3 +116,15 @@ class TestCatalog(unittest.TestCase):
         self.assertEqual(my_catalog.search_proteins("MMM"), [])
         self.assertEqual(my_catalog.search_proteins("4LMR"), [kinase1])
 
+    def test_delete_protein(self):
+        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        kinase1 = Protein("4LMR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        my_list_kinases = [kinase2, kinase1]
+        my_catalog = Catalog(my_list_kinases)
+        my_catalog.delete_protein("4LMR")
+        self.assertEqual(my_catalog.get_proteins(), [kinase2])
+        my_catalog.delete_protein("4CCC")
+        self.assertEqual(my_catalog.get_proteins(), [kinase2])
+        self.assertTrue(my_catalog.delete_protein("4LTR"))
+        self.assertFalse(my_catalog.delete_protein("4LTR"))
+
