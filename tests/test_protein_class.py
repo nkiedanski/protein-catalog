@@ -99,11 +99,20 @@ class TestProtein(unittest.TestCase):
 
     def test_sort_proteins(self):
         alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "358")
-        beta = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        beta = Protein("3C48", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
         list = [alfa, beta]
         list.sort()
         self.assertEqual(list, [beta, alfa])
         self.assertNotEqual(list, [alfa, beta])
+
+    def test_eq__(self):
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "358")
+        beta = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        self.assertEqual(alfa, beta)
+        gama = Protein("3C48", "transferasa", "Homo sapiens", "2008-01-29", True, "358")
+        delta = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        self.assertNotEqual(gama, delta)
+
 
 
 if __name__ == '__main__':

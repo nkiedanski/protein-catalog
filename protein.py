@@ -89,3 +89,11 @@ class Protein:
                         if self.__year_deposited == other.__year_deposited:
                             result = self.__atom_count < other.__atom_count
         return result
+
+    def __eq__(self, other):
+        result = False
+        if other is not None:
+            if isinstance(other, Protein):
+                result = self.__pdb_code == other.__pdb_code
+        return result
+
