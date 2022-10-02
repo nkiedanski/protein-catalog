@@ -112,9 +112,18 @@ class TestCatalog(unittest.TestCase):
         kinase1 = Protein("4LMR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
         my_list_kinases = [kinase2, kinase1]
         my_catalog = Catalog(my_list_kinases)
-        self.assertEqual(my_catalog.search_proteins("4L"), [kinase2, kinase1])
-        self.assertEqual(my_catalog.search_proteins("MMM"), [])
-        self.assertEqual(my_catalog.search_proteins("4LMR"), [kinase1])
+        self.assertEqual(my_catalog.search_proteins_pdb_code("4L"), [kinase2, kinase1])
+        self.assertEqual(my_catalog.search_proteins_pdb_code("MMM"), [])
+        self.assertEqual(my_catalog.search_proteins_pdb_code("4LMR"), [kinase1])
+
+    def test_search_protein_classification(self):
+        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        kinase1 = Protein("4LMR", "transport h20", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        my_list_kinases = [kinase2, kinase1]
+        my_catalog = Catalog(my_list_kinases)
+        self.assertEqual(my_catalog.search_proteins_classification("transport"), [kinase2, kinase1])
+        self.assertEqual(my_catalog.search_proteins_classification("MMM"), [])
+        self.assertEqual(my_catalog.search_proteins_classification("transport h20"), [kinase1])
 
     def test_delete_protein(self):
         kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
