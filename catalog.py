@@ -32,7 +32,7 @@ class Catalog:
         for protein in self.__proteins:
             max_spacing = protein.get_max_spacing()
             max_spacing_each_protein.append(max_spacing)
-        overall_max_spacing = max(max_spacing_each_protein)
+        overall_max_spacing = max(max_spacing_each_protein, default=0)
         return overall_max_spacing
 
     def max_spacing_headers(self):

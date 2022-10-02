@@ -3,7 +3,9 @@ from protein import Protein
 from catalog import Catalog
 # PROGRAM
 
-catalog = Catalog.read_catalog("./test_read_catalog.txt")
+FILE_PATH = "./catalog.txt"
+
+catalog = Catalog.read_catalog(FILE_PATH)
 
 running_program = True
 
@@ -34,13 +36,24 @@ while running_program:
     if activity == 4:
         pdb_code = str(input("Please write the protein's PDB code: ")).upper()
         classification = str(input("Please write the protein's name: ")).lower()
-        organism = str(input("Please write the protein's name: "))
-        manually_curated = bool(input("Please write 'True' or 'False': "))
+        organism = str(input("Please write the protein's organism: "))
         year_deposited = str(input("Please write year deposited: "))
+        manually_curated = bool(input("Please write 'True' or 'False': "))
         atom_count = str(input("Please write atom count: "))
-        protein_created = Protein(pdb_code, classification, organism, manually_curated, year_deposited, atom_count)
+        protein_created = Protein(pdb_code, classification, organism, year_deposited, manually_curated, atom_count)
         catalog.add_or_edit(protein_created)
+        print("Protein added/edited")
+    if activity == 5:
+        search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
+        deleted_successfully = catalog.delete_protein(search_pdb_code)
+        if deleted_successfully:
+            print("Protein deleted")
+        else:
+            print("This protein is not in the catalog")
     if activity == 0:
+        should_save = str(input("Do you want to save changes before exit? - yes/no: ")).upper()
+        if should_save == "YES":
+            catalog.save_catalog(FILE_PATH)
         running_program = False
         print("Goodbye!")
 

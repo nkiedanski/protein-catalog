@@ -44,6 +44,9 @@ class TestCatalog(unittest.TestCase):
         my_list_kinases = [kinase1, kinase2]
         my_catalog = Catalog(my_list_kinases)
         self.assertEqual(my_catalog.max_spacing_for_all_proteins(), 25)
+        empty_catalog = Catalog([])
+        self.assertEqual(empty_catalog.max_spacing_for_all_proteins(), 0)
+
 
     def test_max_spacing_headers_invalid(self):
         kinase1 = Protein("3C", "tran", "Homo", "200", True, "3")
@@ -73,7 +76,7 @@ class TestCatalog(unittest.TestCase):
         )
 
     def test_read_catalog(self):
-        my_catalog = Catalog.read_catalog("/Users/nicole/PycharmProjects/python-ii/test_read_catalog.txt")
+        my_catalog = Catalog.read_catalog("./test_read_catalog.txt")
         self.assertEqual(len(my_catalog.get_proteins()), 2)
         self.assertEqual(my_catalog.get_proteins()[0].get_pdb_code(), "3C49")
         self.assertEqual(my_catalog.get_proteins()[0].get_classification(), "transferasa")
@@ -87,8 +90,8 @@ class TestCatalog(unittest.TestCase):
         kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
         my_list_kinases = [kinase1, kinase2]
         my_catalog = Catalog(my_list_kinases)
-        my_catalog.save_catalog("/Users/nicole/PycharmProjects/python-ii/test_save_catalog")
-        new_catalog = Catalog.read_catalog("./test_save_catalog")
+        my_catalog.save_catalog("./test_save_catalog.txt")
+        new_catalog = Catalog.read_catalog("./test_save_catalog.txt")
         self.assertEqual(len(new_catalog.get_proteins()), 2)
         self.assertEqual(new_catalog.get_proteins()[1].get_pdb_code(), "4LTR")
         self.assertEqual(new_catalog.get_proteins()[0].get_classification(), "transferasa")
@@ -96,7 +99,7 @@ class TestCatalog(unittest.TestCase):
         self.assertEqual(new_catalog.get_proteins()[1].get_year_deposited(), "2013-07-23")
         self.assertEqual(new_catalog.get_proteins()[1].get_manually_curated(), True)
         self.assertEqual(new_catalog.get_proteins()[1].get_atom_count(), "152")
-        file = open("./test_save_catalog", "w")
+        file = open("./test_save_catalog.txt", "w")
         file.write("")
         file.close()
 
