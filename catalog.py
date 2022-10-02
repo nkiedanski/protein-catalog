@@ -1,4 +1,4 @@
-from .protein import Protein
+from protein import Protein
 
 
 class Catalog:
@@ -58,7 +58,7 @@ class Catalog:
         self.__proteins.sort()
         for protein in self.__proteins:
             s = s + protein.turn_to_string(self.__overall_max_spacing__()) + "\n"
-            return s
+        return s
 
     def read_catalog(filepath):
         file = open(filepath, "r")

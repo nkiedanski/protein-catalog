@@ -1,5 +1,5 @@
 import unittest
-from ..protein import Protein
+from protein import Protein
 
 # pdb_code, classification, organism, year_deposited, manually_curated, atom_count):
 
