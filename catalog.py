@@ -85,9 +85,21 @@ class Catalog:
             file.write(string)
         file.close()
 
-    def add_protein(self, protein):
-        self.__proteins.append(protein)
-        return True
+    # def add_protein(self, protein):
+    #     self.__proteins.append(protein)
+    #     return True
+
+    def add_or_edit(self, search_protein):
+        if search_protein not in self.__proteins:
+            self.__proteins.append(search_protein)
+        else:
+            position = self.__proteins.index(search_protein)
+            protein = self.__proteins[position]
+            protein.set_classification(search_protein.get_classification())
+            protein.set_organism(search_protein.get_organism())
+            protein.set_year_deposited(search_protein.get_year_deposited())
+            protein.set_manually_curated(search_protein.get_manually_curated())
+            protein.set_atom_count(search_protein.get_atom_count())
 
     def search_proteins_pdb_code(self, pdb_code):
         proteins_found = []

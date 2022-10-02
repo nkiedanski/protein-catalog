@@ -100,12 +100,12 @@ class TestCatalog(unittest.TestCase):
         file.write("")
         file.close()
 
-    def test_add_protein(self):
-        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
-        my_list_kinases = []
-        my_catalog = Catalog(my_list_kinases)
-        my_catalog.add_protein(kinase2)
-        self.assertEqual(my_catalog.get_proteins(), [kinase2])
+    # def test_add_protein(self):
+    #     kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+    #     my_list_kinases = []
+    #     my_catalog = Catalog(my_list_kinases)
+    #     my_catalog.add_protein(kinase2)
+    #     self.assertEqual(my_catalog.get_proteins(), [kinase2])
 
     def test_search_protein(self):
         kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
@@ -136,4 +136,20 @@ class TestCatalog(unittest.TestCase):
         self.assertEqual(my_catalog.get_proteins(), [kinase2])
         self.assertTrue(my_catalog.delete_protein("4LTR"))
         self.assertFalse(my_catalog.delete_protein("4LTR"))
+
+    def test_add_or_edit(self):
+        kinase2 = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        kinase1 = Protein("4LMR", "transport h20", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        my_list_kinases = [kinase2]
+        my_catalog = Catalog(my_list_kinases)
+        my_catalog.add_or_edit(kinase1)
+        self.assertEqual(my_catalog.get_proteins(), [kinase2, kinase1])
+        kinase2_edited = Protein("4LTR", "transport protein", "Alkalilimnicola sapo", "2013-07-23", True, "152")
+        my_catalog.add_or_edit(kinase2_edited)
+        self.assertEqual(my_catalog.get_proteins(), [kinase2_edited, kinase1])
+        self.assertEqual(kinase2.get_organism(),"Alkalilimnicola sapo")
+
+
+
+
 
