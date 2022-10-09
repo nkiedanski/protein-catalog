@@ -14,5 +14,11 @@ print("Is there any null value in the red wine data?: ", wine_red.isnull().value
       "Is there any null value in the white wine data?: ", wine_white.isnull().values.any(), "\n")
 
 print("Are the same variables being measure?: ", wine_red.columns.values.tolist() == wine_white.columns.values.tolist())
-print("The wine variables are: ", *wine_red.columns.values.tolist(), sep="\n")
+print("The wine variables are: ", *wine_red.columns.values.tolist(), "\n", sep="\n", )
 
+wine_white["type"] = "white"
+wine_red["type"] = "red"
+
+merged_df = pd.concat([wine_red, wine_white], axis=0)
+merged_df.reset_index(inplace=True, drop= True)
+print("Complete Wine Dataset", "\n", merged_df, "\n")
