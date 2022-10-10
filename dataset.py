@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+from sklearn.preprocessing import MinMaxScaler
 
 pd.options.display.max_columns = 13
 print("------------ download ------------ ", "\n")
@@ -47,19 +48,30 @@ print("Statistical description by category: low/mid/high", "\n", stat_descriptio
 
 
 # GRAPHICS RELATED TO CATEGORY
+scaler = MinMaxScaler()
 x_low = merged_df[merged_df["category"] == "low"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
                                                "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
                                                "alcohol"]]
+x_low_scaled = scaler.fit_transform(x_low.to_numpy())
+x_low_scaled = pd.DataFrame(x_low_scaled)
+
 x_mid = merged_df[merged_df["category"] == "mid"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
                                                "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
                                                "alcohol"]]
-# x_high = merged_df[merged_df["category"] == "high"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
-#                                                 "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
-#                                                 "alcohol"]]
+x_mid_scaled = scaler.fit_transform(x_mid.to_numpy())
+x_mid_scaled = pd.DataFrame(x_mid_scaled)
+
+x_high = merged_df[merged_df["category"] == "high"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
+                                                 "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
+                                                 "alcohol"]]
+x_high_scaled = scaler.fit_transform(x_high.to_numpy())
+x_high_scaled = pd.DataFrame(x_high_scaled)
+
 # DE BARRAS
 x = np.arange(len(x_low.columns))
-height = x_low.mean()
-height2 = x_mid.mean()
+height_low = x_low_scaled.mean()
+height_mid = x_mid_scaled.mean()
+height_high = x_high_scaled.mean()
 # yerr = 1.96*x_low.std()/math.sqrt(len(x_low.index))
 # yerr2 = 1.96*x_mid.std()/math.sqrt(len(x_mid.index))
 #
@@ -92,8 +104,9 @@ ax = plt.axes()
 # x = np.linspace(0, 10, 1000)
 # Ploteamos en el axe actual 4 curvas diferentes
 # Dibujamos los senos en rojo y los cosenos en azul
-plt.plot(x, height, linewidth=0.5, color='red')
-plt.plot(x, height2, linewidth=0.5, color='blue')
+plt.plot(x, height_low, linewidth=0.5, color='red')
+plt.plot(x, height_mid, linewidth=0.5, color='blue')
+plt.plot(x, height_high, linewidth=0.5, color='green')
 ax.set_xticks(x)
 ax.set_xticklabels(x_low.columns.tolist(), fontsize=4.5)
 
