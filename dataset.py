@@ -50,19 +50,54 @@ print("Statistical description by category: low/mid/high", "\n", stat_descriptio
 x_low = merged_df[merged_df["category"] == "low"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
                                                "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
                                                "alcohol"]]
-
-
+x_mid = merged_df[merged_df["category"] == "mid"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
+                                               "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
+                                               "alcohol"]]
+# x_high = merged_df[merged_df["category"] == "high"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
+#                                                 "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
+#                                                 "alcohol"]]
+# DE BARRAS
 x = np.arange(len(x_low.columns))
 height = x_low.mean()
-yerr = 1.96*x_low.std()/math.sqrt(len(x_low.index))
+height2 = x_mid.mean()
+# yerr = 1.96*x_low.std()/math.sqrt(len(x_low.index))
+# yerr2 = 1.96*x_mid.std()/math.sqrt(len(x_mid.index))
+#
+# fig, ax = plt.subplots(figsize=(12,12))
+# ax.bar(x, height, yerr=yerr, align='center', alpha=0.5, ecolor='black', capsize=10)
+# ax.bar(x, height2, yerr=yerr2, align='center', alpha=0.5, ecolor='black', capsize=10)
+# ax.set_ylabel("Mean of wine variables +- std")
+# ax.set_xticks(x)
+# ax.set_xticklabels(x_low.columns.tolist())
+# ax.set_title("Wine variables per category")
+# ax.yaxis.grid(True)
+# plt.tight_layout()
+# plt.show()
 
-fig, ax = plt.subplots(figsize=(12,7))
-ax.bar(x, height, yerr=yerr, align='center', alpha=0.5, ecolor='black', capsize=10)
-ax.set_ylabel("Mean of wine variables +- std")
-ax.set_xticks(x)
-ax.set_xticklabels(x_low.columns.tolist())
-ax.set_title("Wine variables per category")
-ax.yaxis.grid(True)
-plt.tight_layout()
+# xpoints = np.array([1, 2, 6, 8])
+# ypoints = np.array([3, 8, 1, 10])
+# xp2 = np.array([0, 3, 7, 8])
+# yp2 = np.array([5, 7, 8, 10])
+# plt.plot(xpoints, ypoints, xp2, yp2
+#  marker = "D",
+#  linestyle = "dotted"
+# ,
+#  linewidth = "4.2",
+#  color = "#ff0000")
+# plt.show()
+
+
+fig=plt.figure()
+ax=plt.axes()
+# x = np.linspace(0, 10, 1000)
+# Ploteamos en el axe actual 4 curvas diferentes
+# Dibujamos los senos en rojo y los cosenos en azul
+plt.plot(x, height, color='red')
+plt.plot(x, height2, color='blue')
+
+
+# Le ponemos un tìtulo y tìtulos a los ejes, por supuesto
+plt.title("Wine variables per category")
+plt.xlabel("Wine variables")
+plt.ylabel("Mean of wine variables +- std")
 plt.show()
-
