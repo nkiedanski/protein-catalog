@@ -67,6 +67,10 @@ x_high = merged_df[merged_df["category"] == "high"][["fixed acidity", "volatile 
 x_high_scaled = scaler.fit_transform(x_high.to_numpy())
 x_high_scaled = pd.DataFrame(x_high_scaled)
 
+# PLOT GRAPHS
+
+
+
 # DE BARRAS
 x = np.arange(len(x_low.columns))
 height_low = x_low_scaled.mean()
@@ -74,7 +78,6 @@ height_mid = x_mid_scaled.mean()
 height_high = x_high_scaled.mean()
 # yerr = 1.96*x_low.std()/math.sqrt(len(x_low.index))
 # yerr2 = 1.96*x_mid.std()/math.sqrt(len(x_mid.index))
-#
 # fig, ax = plt.subplots(figsize=(12,12))
 # ax.bar(x, height, yerr=yerr, align='center', alpha=0.5, ecolor='black', capsize=10)
 # ax.bar(x, height2, yerr=yerr2, align='center', alpha=0.5, ecolor='black', capsize=10)
@@ -86,31 +89,16 @@ height_high = x_high_scaled.mean()
 # plt.tight_layout()
 # plt.show()
 
-# xpoints = np.array([1, 2, 6, 8])
-# ypoints = np.array([3, 8, 1, 10])
-# xp2 = np.array([0, 3, 7, 8])
-# yp2 = np.array([5, 7, 8, 10])
-# plt.plot(xpoints, ypoints, xp2, yp2
-#  marker = "D",
-#  linestyle = "dotted"
-# ,
-#  linewidth = "4.2",
-#  color = "#ff0000")
-# plt.show()
 
-
-#fig = plt.figure()
 ax = plt.axes()
-# x = np.linspace(0, 10, 1000)
-# Ploteamos en el axe actual 4 curvas diferentes
-# Dibujamos los senos en rojo y los cosenos en azul
-plt.plot(x, height_low, linewidth=0.5, color='red')
-plt.plot(x, height_mid, linewidth=0.5, color='blue')
-plt.plot(x, height_high, linewidth=0.5, color='green')
+plt.plot(x, height_low, linewidth=0.5, color="magenta", label="low category")
+plt.plot(x, height_mid, linewidth=0.5, color="blue", label="mid category")
+plt.plot(x, height_high, linewidth=0.5, color="green", label="high category")
 ax.set_xticks(x)
+ax.legend()
 ax.set_xticklabels(x_low.columns.tolist(), fontsize=4.5)
 
-# Le ponemos un tìtulo y tìtulos a los ejes, por supuesto
+# Adding title to ax and figure
 plt.title("Wine variables per category", fontsize=10)
 plt.xlabel("Wine variables")
 plt.ylabel("Mean of wine variables +- std")
