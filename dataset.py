@@ -92,13 +92,13 @@ ax = plt.axes()
 # x = np.linspace(0, 10, 1000)
 # Ploteamos en el axe actual 4 curvas diferentes
 # Dibujamos los senos en rojo y los cosenos en azul
-plt.plot(x, height, color='red')
-plt.plot(x, height2, color='blue')
+plt.plot(x, height, linewidth=0.5, color='red')
+plt.plot(x, height2, linewidth=0.5, color='blue')
 ax.set_xticks(x)
-ax.set_xticklabels(x_low.columns.tolist())
+ax.set_xticklabels(x_low.columns.tolist(), fontsize=4.5)
 
 # Le ponemos un tìtulo y tìtulos a los ejes, por supuesto
-plt.title("Wine variables per category")
+plt.title("Wine variables per category", fontsize=10)
 plt.xlabel("Wine variables")
 plt.ylabel("Mean of wine variables +- std")
 plt.show()
