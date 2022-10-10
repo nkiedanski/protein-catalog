@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import math
 
 pd.options.display.max_columns = 13
 print("------------ download ------------ ", "\n")
@@ -12,8 +14,8 @@ print("------------ analysis ------------ ", "\n")
 print("The shape of red wine file is: ", "rows: ", wine_red.shape[0], "columns: ", wine_red.shape[1], "\n",
       "The shape of white wine file is: ", "rows: ", wine_white.shape[0], "columns: ", wine_white.shape[1], "\n")
 
-print("Is there any null value in the red wine data?: ", wine_red.isnull().values.any(), "\n",
-      "Is there any null value in the white wine data?: ", wine_white.isnull().values.any(), "\n")
+print("Is there any missing value in the red wine data?: ", wine_red.isnull().values.any(), "\n",
+      "Is there any missing value in the white wine data?: ", wine_white.isnull().values.any(), "\n")
 
 print("Are the same variables being measure?: ", wine_red.columns.values.tolist() == wine_white.columns.values.tolist())
 print("The wine variables are: ", *wine_red.columns.values.tolist(), "\n", sep="\n", )
@@ -33,9 +35,34 @@ merged_df.loc[merged_df.loc[:, "quality"] <= 3, "category"] = "low"
 
 print("Complete Wine Dataset", "\n", merged_df, "\n")
 
-stat_description_type = merged_df.groupby("type")[["citric acid", "residual sugar", "density", "pH", "alcohol"]]. \
+stat_description_type = merged_df.groupby("type")[["citric acid", "residual sugar", "density", "pH", "alcohol"]].\
     agg([np.mean, np.std])
-print(stat_description_type)
+print("Statistical description by type: red/white", "\n", stat_description_type, "\n")
 
-stat_description_category = merged_df.groupby("category")[["citric acid", "residual sugar", "density", "pH", "alcohol"]].agg([np.mean, np.std])
-print(stat_description_category)
+stat_description_category = merged_df.groupby("category")[["fixed acidity", "volatile acidity", "citric acid",
+                                                           "residual sugar", "chlorides", "total sulfur dioxide",
+                                                           "density", "pH", "sulphates", "alcohol"]].agg([np.mean, np.std])
+print("Statistical description by category: low/mid/high", "\n", stat_description_category, "\n")
+
+
+
+# GRAPHICS RELATED TO CATEGORY
+x_low = merged_df[merged_df["category"] == "low"][["fixed acidity", "volatile acidity", "citric acid", "residual sugar",
+                                               "chlorides", "total sulfur dioxide", "density", "pH", "sulphates",
+                                               "alcohol"]]
+
+
+x = np.arange(len(x_low.columns))
+height = x_low.mean()
+yerr = 1.96*x_low.std()/math.sqrt(len(x_low.index))
+
+fig, ax = plt.subplots(figsize=(12,7))
+ax.bar(x, height, yerr=yerr, align='center', alpha=0.5, ecolor='black', capsize=10)
+ax.set_ylabel("Mean of wine variables +- std")
+ax.set_xticks(x)
+ax.set_xticklabels(x_low.columns.tolist())
+ax.set_title("Wine variables per category")
+ax.yaxis.grid(True)
+plt.tight_layout()
+plt.show()
+
