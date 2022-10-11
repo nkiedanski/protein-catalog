@@ -115,26 +115,26 @@ results = {
 }
 labels = list(results.keys())
 data = np.array(list(results.values()))
+# axis=1 because sum over columns for each of the 2 rows
 data_cum = data.cumsum(axis=1)
-print(data)
+# data.shape[1] returns de quantity of columns/labels/variables to indicate number of colores (samples) needed
 category_colors = plt.colormaps['PRGn'](
-    np.linspace(0, 0.80, data.shape[1]))
+    np.linspace(0, 0.77, data.shape[1]))
 
 fig3 = plt.figure()
 ax3 = plt.axes()
 ax3.invert_yaxis()
 ax3.xaxis.set_visible(False)
-ax3.set_xlim(0, np.sum(data, axis=1).max())
+#ax3.set_xlim(0, np.sum(data, axis=1).max())
 
 for i, (colname, color) in enumerate(zip(category_names, category_colors)):
     widths = data[:, i]
     starts = data_cum[:, i] - widths
-    rects = ax3.barh(labels, widths, left=starts, height=0.5,
+    rects = ax3.barh(labels, widths, left=starts, height=0.45, align="edge",
                     label=colname, color=color)
-
     r, g, b, _ = color
-    text_color = 'white' if r * g * b < 0.5 else 'black'
+    text_color = "white" if r * g * b < 0.1 else "black"
     ax3.bar_label(rects, label_type='center', color=text_color)
 ax3.legend(ncol=len(category_names), bbox_to_anchor=(0, 1),
           loc='lower left', fontsize='small')
-#plt.show()
+plt.show()
