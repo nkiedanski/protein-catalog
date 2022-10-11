@@ -53,62 +53,88 @@ merged_df_scaled_complete = pd.concat([merged_df_scaled, merged_df[["quality", "
 print("Complete Wine Dataset Scaled", "\n", merged_df_scaled_complete, "\n")
 
 
-# GRAPHICS RELATED TO CATEGORY
-x_low = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "low"][quality_variables]
-x_mid = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "mid"][quality_variables]
-x_high = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "high"][quality_variables]
-
-# PLOT GRAPHS
-fig = plt.figure()
-x = np.arange(len(x_low.columns))
-y_low = x_low.mean()
-y_mid = x_mid.mean()
-y_high = x_high.mean()
-ax = plt.axes()
-plt.plot(x, y_low, linewidth=0.5, color="magenta", label="low category")
-plt.plot(x, y_mid, linewidth=0.5, color="blue", label="mid category")
-plt.plot(x, y_high, linewidth=0.5, color="green", label="high category")
-ax.set_xticks(x)
-ax.legend()
-ax.set_xticklabels(x_low.columns.tolist(), fontsize=4.5)
-# Adding title to ax and figure
-plt.title("Wine variables per category", fontsize=10)
-plt.xlabel("Wine variables")
-plt.ylabel("Mean of wine variables")
-plt.show()
-
-
-# GRAPHICS RELATED TO TYPE
-x_red = merged_df_scaled_complete[merged_df_scaled_complete["type"] == "red"][taste_variables]
-x_white = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "mid"][taste_variables]
-# PLOT GRAPHS
-fig2 = plt.figure()
-x2 = np.arange(len(x_red.columns))
-y_red = x_red.mean()
-y_white = x_white.mean()
-ax2 = plt.axes()
-plt.plot(x2, y_red, linewidth=1, color="purple", label="red wine")
-plt.plot(x2, y_white, linewidth=1, color="pink", label="white wine")
-ax2.set_xticks(x2)
-ax2.legend()
-ax2.set_xticklabels(x_red.columns.tolist(), fontsize=4.5)
-# Adding title to ax and figure
-plt.title("Wine variables per type", fontsize=10)
-plt.xlabel("Wine variables")
-plt.ylabel("Mean of wine variables")
-plt.show()
+# # GRAPHICS RELATED TO CATEGORY
+# x_low = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "low"][quality_variables]
+# x_mid = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "mid"][quality_variables]
+# x_high = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "high"][quality_variables]
+#
+# # PLOT GRAPHS
+# fig = plt.figure()
+# x = np.arange(len(x_low.columns))
+# y_low = x_low.mean()
+# y_mid = x_mid.mean()
+# y_high = x_high.mean()
+# ax = plt.axes()
+# plt.plot(x, y_low, linewidth=0.5, color="magenta", label="low category")
+# plt.plot(x, y_mid, linewidth=0.5, color="blue", label="mid category")
+# plt.plot(x, y_high, linewidth=0.5, color="green", label="high category")
+# ax.set_xticks(x)
+# ax.legend()
+# ax.set_xticklabels(x_low.columns.tolist(), fontsize=4.5)
+# # Adding title to ax and figure
+# plt.title("Wine variables per category", fontsize=10)
+# plt.xlabel("Wine variables")
+# plt.ylabel("Mean of wine variables")
+# plt.show()
+#
+#
+# # GRAPHICS RELATED TO TYPE
+# x_red = merged_df_scaled_complete[merged_df_scaled_complete["type"] == "red"][taste_variables]
+# x_white = merged_df_scaled_complete[merged_df_scaled_complete["category"] == "mid"][taste_variables]
+# # PLOT GRAPHS
+# fig2 = plt.figure()
+# x2 = np.arange(len(x_red.columns))
+# y_red = x_red.mean()
+# y_white = x_white.mean()
+# ax2 = plt.axes()
+# plt.plot(x2, y_red, linewidth=1, color="purple", label="red wine")
+# plt.plot(x2, y_white, linewidth=1, color="pink", label="white wine")
+# ax2.set_xticks(x2)
+# ax2.legend()
+# ax2.set_xticklabels(x_red.columns.tolist(), fontsize=4.5)
+# # Adding title to ax and figure
+# plt.title("Wine variables per type", fontsize=10)
+# plt.xlabel("Wine variables")
+# plt.ylabel("Mean of wine variables")
+# plt.show()
 
 # GRAPHIC RELATED TO CATEGORY AND TYPE
-x3 = np.arange(len(pregunta_2_2.index))
+graph_df_white = merged_df[merged_df["type"] == "white"]["category"].value_counts()
+percentage_white = graph_df_white.values/graph_df_white.sum()*100
+graph_df_red = merged_df[merged_df["type"] == "red"]["category"].value_counts()
+percentage_red = graph_df_red.values/graph_df_red.sum()*100
+# MODIFING FLOAT TO ONE DECIMAL PLACE ONLY
+for index in range(0, len(percentage_white)):
+    percentage_white[index] = round(percentage_white[index], 1)
+    percentage_red[index] = round(percentage_red[index], 1)
+
+category_names = graph_df_white.index.tolist()
+results = {
+    "white": percentage_white,
+    "red": percentage_red
+}
+labels = list(results.keys())
+data = np.array(list(results.values()))
+data_cum = data.cumsum(axis=1)
+print(data)
+category_colors = plt.colormaps['PRGn'](
+    np.linspace(0, 0.80, data.shape[1]))
+
 fig3 = plt.figure()
 ax3 = plt.axes()
-fig, ax = plt.subplots(figsize=(12,7))
-ax.bar(x, height, yerr=yerr, align='center', alpha=0.5, ecolor='black', capsize=10)
-ax.set_ylabel('Media intención de voto +- desviación estándar')
-ax.set_xticks(x)
-ax.set_xticklabels(pregunta_2_2.index)
-ax.set_title('Media intención de voto por grupo demográfico')
-ax.yaxis.grid(True)
-plt.tight_layout()
-plt.show()
+ax3.invert_yaxis()
+ax3.xaxis.set_visible(False)
+ax3.set_xlim(0, np.sum(data, axis=1).max())
 
+for i, (colname, color) in enumerate(zip(category_names, category_colors)):
+    widths = data[:, i]
+    starts = data_cum[:, i] - widths
+    rects = ax3.barh(labels, widths, left=starts, height=0.5,
+                    label=colname, color=color)
+
+    r, g, b, _ = color
+    text_color = 'white' if r * g * b < 0.5 else 'black'
+    ax3.bar_label(rects, label_type='center', color=text_color)
+ax3.legend(ncol=len(category_names), bbox_to_anchor=(0, 1),
+          loc='lower left', fontsize='small')
+#plt.show()
