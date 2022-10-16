@@ -44,15 +44,24 @@ class TestCatalog(unittest.TestCase):
         self.assertEqual(my_catalog.retrieve_proteins()[0], updated_protein)
 
     def test_update_not_exists_addition(self):
-     my_catalog = Catalog()
-     my_catalog.update_protein_if_exist_add_it_otherwise("NICOLE", "kinase", "Homo sapiens", "2008-01-29", False,
+        my_catalog = Catalog()
+        my_catalog.update_protein_if_exist_add_it_otherwise("NICOLE", "kinase", "Homo sapiens", "2008-01-29", False,
                                                          "357")
-     alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
-     beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, "508")
-     gama = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
-     new_protein = Protein("NICOLE", "kinase", "Homo sapiens", "2008-01-29", False, "357")
-     list_proteins = [alfa, beta, gama, new_protein]
-     self.assertEqual(my_catalog.retrieve_proteins(), list_proteins)
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, "508")
+        gama = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        new_protein = Protein("NICOLE", "kinase", "Homo sapiens", "2008-01-29", False, "357")
+        list_proteins = [alfa, beta, gama, new_protein]
+        self.assertEqual(my_catalog.retrieve_proteins(), list_proteins)
+
+    def test_delete_protein(self):
+        my_catalog = Catalog()
+        my_catalog.delete_protein_if_exists("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, "508")
+        gama = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        list_proteins = [beta, gama]
+        self.assertEqual(my_catalog.retrieve_proteins(), list_proteins)
+
 
 if __name__ == '__main__':
     unittest.main()
