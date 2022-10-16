@@ -3,9 +3,8 @@ from protein import Protein
 from catalog import Catalog
 # PROGRAM
 
-FILE_PATH = "./catalog.txt"
 
-catalog = Catalog.read_catalog(FILE_PATH)
+catalog = Catalog()
 
 running_program = True
 
@@ -14,7 +13,7 @@ while running_program:
     ---What do you want to do?
      1 – View all proteins
      2 – Search for a protein by PDB code
-     3 – Search for a protein by name
+     3 – Search for a protein by classification
      4 – Add or update a protein record
      5 – Delete a protein record
      0 – Exit the program""")
@@ -22,7 +21,6 @@ while running_program:
 
     if activity == 1:
         print("*** Viewing all proteins ***")
-
         print(catalog)
     if activity == 2:
         search_pdb_code = str(input("Please write the protein's PDB code: ")).upper()

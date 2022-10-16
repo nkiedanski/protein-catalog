@@ -58,7 +58,7 @@ class Protein:
             len(self.__organism),
             len(self.__year_deposited),
             len(str(self.__manually_curated)),
-            len(self.__atom_count)
+            len(str(self.__atom_count))
         )
         return max_spacing
 
@@ -68,7 +68,7 @@ class Protein:
                  + self.__organism.ljust(spacing) \
                  + self.__year_deposited.ljust(spacing) \
                  + str(self.__manually_curated).ljust(spacing) \
-                 + self.__atom_count.ljust(spacing)
+                 + str(self.__atom_count).ljust(spacing)
 
         return string
 

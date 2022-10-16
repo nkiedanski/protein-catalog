@@ -3,6 +3,8 @@ from database import Database
 
 
 class Catalog:
+    headers = ["--PDBcode--", "--Classification--", "--Organism--", "--YearDeposited--", "--ManuallyCrurated--",
+               "--AtomCount--"]
 
     def __init__(self):
         self.__database = Database()
@@ -32,25 +34,11 @@ class Catalog:
 
 
 
-
-    # getters and setters definition
-    def get_proteins(self):
-        return self.__proteins
-
-    def set_proteins(self, updated_proteins):
-        self.__proteins = updated_proteins
-
-    def get_filepath(self):
-        return self.__filepath
-
-    def set_filepath(self, new_filepath):
-        self.__filepath = new_filepath
-
     # other functions
 
     def max_spacing_for_all_proteins(self):
         max_spacing_each_protein = []
-        for protein in self.__proteins:
+        for protein in self.retrieve_proteins():
             max_spacing = protein.get_max_spacing()
             max_spacing_each_protein.append(max_spacing)
         overall_max_spacing = max(max_spacing_each_protein, default=0)
@@ -76,10 +64,14 @@ class Catalog:
     def __str__(self):
         s = self.generate_headers()
         s = s + "\n"
-        self.__proteins.sort()
-        for protein in self.__proteins:
+        self.retrieve_proteins().sort()
+        for protein in self.retrieve_proteins():
             s = s + protein.turn_to_string(self.__overall_max_spacing__()) + "\n"
         return s
+
+
+
+
 
     def read_catalog(filepath):
         file = open(filepath, "r")
