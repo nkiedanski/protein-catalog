@@ -15,6 +15,20 @@ class Catalog:
         else:
             return False
 
+    def retrieve_proteins(self):
+        return self.__database.retrieve_proteins()
+
+    def update_protein_if_exist_add_it_otherwise(self, pdb_code, classification, organism, year_deposit, manually_curated, atom_count):
+        protein = Protein(pdb_code, classification, organism, year_deposit, manually_curated, atom_count)
+        if protein in self.__database.retrieve_protein_id(pdb_code):
+            self.__database.update_protein(protein)
+        else:
+            self.__database.add_protein(protein)
+
+
+
+
+
     # getters and setters definition
     def get_proteins(self):
         return self.__proteins
