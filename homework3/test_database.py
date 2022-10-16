@@ -60,5 +60,17 @@ class TestCatalog(unittest.TestCase):
         list_proteins = [beta, gama]
         self.assertEqual(my_database.retrieve_proteins(), list_proteins)
 
+    def test_update_protein(self):
+        my_database = Database()
+        alfa_new = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "400")
+        my_database.update_protein(alfa_new)
+        retrieved_list = my_database.retrieve_protein_id("3C49")
+        self.assertEqual(retrieved_list[0].get_pdb_code(), "3C49")
+        self.assertEqual(retrieved_list[0].get_classification(), "transferasa")
+        self.assertEqual(retrieved_list[0].get_organism(), "Homo sapiens")
+        self.assertEqual(retrieved_list[0].get_year_deposited(), "2008-01-29")
+        self.assertEqual(retrieved_list[0].get_manually_curated(), True)
+        self.assertEqual(retrieved_list[0].get_atom_count(), "400")
+
 if __name__ == '__main__':
         unittest.main()
