@@ -6,7 +6,7 @@ from database import Database
 from protein import Protein
 
 
-class TestCatalog(unittest.TestCase):
+class TestDatabase(unittest.TestCase):
     def setUp(self):
         data = {"--PDBcode--": pd.Series(["3C49", "3C48", "4LTR"]),
                 "--Classification--": pd.Series(["transferasa", "transferasa", "transport protein"]),
@@ -71,6 +71,7 @@ class TestCatalog(unittest.TestCase):
         self.assertEqual(retrieved_list[0].get_year_deposited(), "2008-01-29")
         self.assertEqual(retrieved_list[0].get_manually_curated(), True)
         self.assertEqual(retrieved_list[0].get_atom_count(), "400")
+
 
 if __name__ == '__main__':
         unittest.main()

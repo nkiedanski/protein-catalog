@@ -5,11 +5,15 @@ from database import Database
 class Catalog:
 
     def __init__(self):
+        self.__database = Database()
 
-    def retrieve_proteins(self):
-        Database()
-
-
+    def add_protein_if_not_exist(self, pdb_code, classification, organism, year_deposit, manually_curated, atom_count):
+        protein = Protein(pdb_code, classification, organism, year_deposit, manually_curated, atom_count)
+        if protein not in self.__database.retrieve_protein_id(pdb_code):
+            self.__database.add_protein(protein)
+            return True
+        else:
+            return False
 
     # getters and setters definition
     def get_proteins(self):
