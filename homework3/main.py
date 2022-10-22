@@ -1,5 +1,6 @@
 # CLASS PROTEIN
 from catalog import Catalog
+import matplotlib.pyplot as plt
 # PROGRAM
 
 
@@ -12,6 +13,15 @@ def visualization(list_of_proteins, catalog_operator):
     return s
 
 
+def graph_pie_chart_classification(catalog_operator):
+    labels = catalog_operator.graph_group_by_classification()[0]
+    quantities = catalog_operator.graph_group_by_classification()[1]
+    fig1, ax1 = plt.subplots()
+    ax1.pie(quantities, labels=labels, autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')
+    plt.title("Quantity of Proteins(%) by Classification")
+    plt.show()
 
 
 catalog = Catalog()
@@ -26,6 +36,7 @@ while running_program:
      3 – Search for a protein by classification
      4 – Add or update a protein record
      5 – Delete a protein record
+     6 - Show Graph Quantity of Proteins per Classification
      0 – Exit the program""")
     activity = int(input("Please enter here the number: "))
 
@@ -60,6 +71,9 @@ while running_program:
         search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
         catalog.delete_protein_if_exists(search_pdb_code)
         print("Done!")
+
+    if activity == 6:
+        graph_pie_chart_classification(catalog)
 
     if activity == 0:
         running_program = False

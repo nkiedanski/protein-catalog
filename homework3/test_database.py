@@ -82,6 +82,11 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(retrieved_list[0].get_manually_curated(), True)
         self.assertEqual(retrieved_list[0].get_atom_count(), 400)
 
+    def test_graph_group_by_classification(self):
+        labels = ['transferasa', 'transport protein']
+        quantities = [2, 1]
+        self.assertEqual(Database().graph_group_by_classification(), [labels, quantities])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -73,53 +73,5 @@ class Catalog:
             s = s + protein.turn_to_string(self.overall_max_spacing()) + "\n"
         return s
 
-
-
-
-
-    #
-    # def save_catalog(self, filepath):
-    #     file = open(filepath, "w")
-    #     for i in range(0, len(self.__proteins)):
-    #         protein = self.__proteins[i]
-    #         string = protein.get_pdb_code() + "|" + protein.get_classification() + "|" + protein.get_organism() + "|" + \
-    #                  str(protein.get_year_deposited()) + "|" + str(protein.get_manually_curated()) + "|" + \
-    #                  str(protein.get_atom_count())
-    #         if i < len(self.__proteins)-1:
-    #             string = string + "\n"
-    #         file.write(string)
-    #     file.close()
-    #
-    # def add_or_edit(self, search_protein):
-    #     if search_protein not in self.__proteins:
-    #         self.__proteins.append(search_protein)
-    #     else:
-    #         position = self.__proteins.index(search_protein)
-    #         protein = self.__proteins[position]
-    #         protein.set_classification(search_protein.get_classification())
-    #         protein.set_organism(search_protein.get_organism())
-    #         protein.set_year_deposited(search_protein.get_year_deposited())
-    #         protein.set_manually_curated(search_protein.get_manually_curated())
-    #         protein.set_atom_count(search_protein.get_atom_count())
-    #
-    # def search_proteins_pdb_code(self, pdb_code):
-    #     proteins_found = []
-    #     for protein in self.__proteins:
-    #         if protein.get_pdb_code().startswith(pdb_code):
-    #             proteins_found.append(protein)
-    #     return proteins_found
-    #
-    # def search_proteins_classification(self, name):
-    #     proteins_found = []
-    #     for protein in self.__proteins:
-    #         if protein.get_classification().startswith(name):
-    #             proteins_found.append(protein)
-    #     return proteins_found
-    #
-    # def delete_protein(self, pdb_code):
-    #     protein_deleted = False
-    #     for protein in self.__proteins:
-    #         if protein.get_pdb_code() == pdb_code:
-    #             self.__proteins.remove(protein)
-    #             protein_deleted = True
-    #     return protein_deleted
+    def graph_group_by_classification(self):
+        return self.__database.graph_group_by_classification()

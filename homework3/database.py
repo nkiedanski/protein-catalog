@@ -34,20 +34,6 @@ class Database:
             list_proteins.append(protein)
         return list_proteins
 
-    # def retrieve_protein_id(self, pdb_code):
-    #     list_proteins = []
-    #     if self.__df["--PDBcode--"].isin([pdb_code]).any():
-    #         index_pdb_code = int(self.__df[self.__df["--PDBcode--"] == pdb_code].index.values)
-    #         id = self.__df.iloc[index_pdb_code, 0]
-    #         classification = self.__df.iloc[index_pdb_code, 1]
-    #         organism = self.__df.iloc[index_pdb_code, 2]
-    #         year_deposited = self.__df.iloc[index_pdb_code, 3]
-    #         manually_curated = bool(self.__df.iloc[index_pdb_code, 4])
-    #         atom_count = self.__df.iloc[index_pdb_code, 5]
-    #         protein = Protein(id, classification, organism, year_deposited, manually_curated, atom_count)
-    #         list_proteins.append(protein)
-    #     return list_proteins
-
     def retrieve_protein_classification(self, classification):
         list_proteins = []
         if self.__df["--Classification--"].isin([classification]).any():
@@ -84,6 +70,10 @@ class Database:
         self.__df.iloc[index_pdb_code, 5] = protein.get_atom_count()
         self.__df.to_csv("proteins.csv", sep=";", index=False, mode="w")
 
+    def graph_group_by_classification(self):
+        labels = list(self.__df.groupby("--Classification--")["--Classification--"].count().index.values)
+        quantities = list(self.__df.groupby("--Classification--")["--Classification--"].count().values)
+        return [labels, quantities]
 
 
 
