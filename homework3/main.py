@@ -24,6 +24,18 @@ def graph_pie_chart_classification(catalog_operator):
     plt.show()
 
 
+def graph_plot_year(catalog_operator):
+    values = catalog_operator.graph_group_by_year()
+    x = [int(i) for i in values[0]]
+    y = values[1]
+    plt.plot(x, y, "bd--")
+
+    plt.xlabel("year deposited")
+    plt.ylabel("No. of Proteins")
+    plt.title("No. Proteins by Year Deposited")
+    plt.show()
+
+
 catalog = Catalog()
 
 running_program = True
@@ -36,7 +48,8 @@ while running_program:
      3 – Search for a protein by classification
      4 – Add or update a protein record
      5 – Delete a protein record
-     6 - Show Graph Quantity of Proteins per Classification
+     6 - Show Graph Quantity of Proteins by Classification
+     7 - Show Graph Quantity of Proteins by Year Deposited
      0 – Exit the program""")
     activity = int(input("Please enter here the number: "))
 
@@ -74,6 +87,9 @@ while running_program:
 
     if activity == 6:
         graph_pie_chart_classification(catalog)
+
+    if activity == 7:
+        graph_plot_year(catalog)
 
     if activity == 0:
         running_program = False

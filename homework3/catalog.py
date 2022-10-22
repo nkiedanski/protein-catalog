@@ -75,3 +75,6 @@ class Catalog:
 
     def graph_group_by_classification(self):
         return self.__database.graph_group_by_classification()
+
+    def graph_group_by_year(self):
+        return self.__database.graph_group_by_year()
