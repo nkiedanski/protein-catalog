@@ -71,7 +71,7 @@ class Catalog:
         s = s + "\n"
         self.retrieve_proteins().sort()
         for protein in self.retrieve_proteins():
-            s = s + protein.turn_to_string(self.__overall_max_spacing__()) + "\n"
+            s = s + protein.turn_to_string(self.overall_max_spacing()) + "\n"
         return s
 
 

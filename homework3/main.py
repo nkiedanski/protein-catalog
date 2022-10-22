@@ -31,16 +31,19 @@ while running_program:
     if activity == 1:
         print("*** Viewing all proteins ***")
         print(catalog)
+
     if activity == 2:
         search_pdb_code = str(input("Please write the protein's PDB code: ")).upper()
         proteins_found = catalog.retrieve_proteins_by_id(search_pdb_code)
         print("*** Viewing proteins found ***")
         print(visualization(proteins_found, catalog))
+
     if activity == 3:
         search_name = str(input("Please write the protein's classification: ")).lower()
-        proteins_found = catalog.search_proteins_classification(search_name)
-        catalog_found = Catalog(proteins_found)
-        print(catalog_found)
+        proteins_found = catalog.retrieve_proteins_by_classification(search_name)
+        print("*** Viewing proteins found ***")
+        print(visualization(proteins_found, catalog))
+
     if activity == 4:
         pdb_code = str(input("Please write the protein's PDB code: ")).upper()
         classification = str(input("Please write the protein's name: ")).lower()
@@ -48,20 +51,16 @@ while running_program:
         year_deposited = str(input("Please write year deposited: "))
         manually_curated = bool(input("Please write 'True' or 'False': "))
         atom_count = str(input("Please write atom count: "))
-        protein_created = Protein(pdb_code, classification, organism, year_deposited, manually_curated, atom_count)
-        catalog.add_or_edit(protein_created)
+        catalog.update_protein_if_exist_add_it_otherwise(pdb_code, classification, organism, year_deposited,
+                                                         manually_curated, atom_count)
         print("Protein added/edited")
-    if activity == 5:
-        search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
-        deleted_successfully = catalog.delete_protein(search_pdb_code)
-        if deleted_successfully:
-            print("Protein deleted")
-        else:
-            print("This protein is not in the catalog")
+
+    # if activity == 5:
+    #     search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
+    #     catalog.delete_protein_if_exists(search_pdb_code)
+    #     print("Done!")
+
     if activity == 0:
-        should_save = str(input("Do you want to save changes before exit? - yes/no: ")).upper()
-        if should_save == "YES":
-            catalog.save_catalog(FILE_PATH)
         running_program = False
         print("Goodbye!")
 

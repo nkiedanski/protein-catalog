@@ -83,6 +83,7 @@ class Database:
         self.__df.iloc[index_pdb_code, 3] = protein.get_year_deposited()
         self.__df.iloc[index_pdb_code, 4] = protein.get_manually_curated()
         self.__df.iloc[index_pdb_code, 5] = protein.get_atom_count()
+        self.__df.to_csv("proteins.csv", sep=";", index=False, mode="w")
 
 
 

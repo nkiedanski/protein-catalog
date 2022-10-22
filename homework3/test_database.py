@@ -19,58 +19,58 @@ class TestDatabase(unittest.TestCase):
 
     def test_retrieve_proteins(self):
         my_database = Database()
-        alfa = Protein("3C49", "transferasa", "Homo sapiens","2008-01-29",True,"357")
-        beta = Protein("3C48","transferasa","Homo sapiens","2004-01-29",True,"508")
-        gama = Protein("4LTR","transport protein","Alkalilimnicola ehrlichii","2013-07-23",True,"152")
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
+        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, 508)
+        gama = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, 152)
         list_proteins = [alfa, beta, gama]
         self.assertEqual(my_database.retrieve_proteins(), list_proteins)
 
     def test_retrieve_protein_id(self):
         my_database = Database()
-        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
         list_proteins = [alfa]
         self.assertEqual(my_database.retrieve_protein_id("3C49"), list_proteins)
 
     def test_retrieve_protein_classification(self):
         my_database = Database()
-        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
-        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, "508")
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
+        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, 508)
         list_proteins = [alfa, beta]
         self.assertEqual(my_database.retrieve_protein_classification("transferasa"), list_proteins)
 
     def test_add_protein(self):
         my_database = Database()
-        alfa = Protein("NIC", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        alfa = Protein("NIC", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
         my_database.add_protein(alfa)
-        self.assertEqual(my_database.retrieve_protein_id("NIC"), [alfa])
+        self.assertEqual(Database().retrieve_protein_id("NIC"), [alfa])
 
     def test_add_protein_modify_dataset(self):
         my_database = Database()
-        alfa = Protein("NIC", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
+        alfa = Protein("NIC", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
         my_database.add_protein(alfa)
         new_database = Database()
         self.assertEqual(new_database.retrieve_protein_id("NIC"), [alfa])
 
     def test_delete_protein(self):
         my_database = Database()
-        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "357")
-        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, "508")
-        gama = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, "152")
+        alfa = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
+        beta = Protein("3C48", "transferasa", "Homo sapiens", "2004-01-29", True, 508)
+        gama = Protein("4LTR", "transport protein", "Alkalilimnicola ehrlichii", "2013-07-23", True, 152)
         my_database.delete_protein(alfa)
         list_proteins = [beta, gama]
-        self.assertEqual(my_database.retrieve_proteins(), list_proteins)
+        self.assertEqual(Database().retrieve_proteins(), list_proteins)
 
     def test_update_protein(self):
         my_database = Database()
-        alfa_new = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, "400")
+        alfa_new = Protein("3C49", "transferasa", "Homo sapiens", "2008-01-29", True, 400)
         my_database.update_protein(alfa_new)
-        retrieved_list = my_database.retrieve_protein_id("3C49")
+        retrieved_list = Database().retrieve_protein_id("3C49")
         self.assertEqual(retrieved_list[0].get_pdb_code(), "3C49")
         self.assertEqual(retrieved_list[0].get_classification(), "transferasa")
         self.assertEqual(retrieved_list[0].get_organism(), "Homo sapiens")
         self.assertEqual(retrieved_list[0].get_year_deposited(), "2008-01-29")
         self.assertEqual(retrieved_list[0].get_manually_curated(), True)
-        self.assertEqual(retrieved_list[0].get_atom_count(), "400")
+        self.assertEqual(retrieved_list[0].get_atom_count(), 400)
 
 
 if __name__ == '__main__':
