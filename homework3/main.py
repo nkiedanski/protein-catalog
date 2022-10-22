@@ -11,7 +11,7 @@ def visualization(list_of_proteins, catalog_operator):
         s = s + each_protein.turn_to_string(catalog_operator.overall_max_spacing()) + "\n"
     return s
 
-def graph_
+
 
 
 catalog = Catalog()
