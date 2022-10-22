@@ -75,6 +75,14 @@ class Database:
         quantities = list(self.__df.groupby("--Classification--")["--Classification--"].count().values)
         return [labels, quantities]
 
+    def graph_group_by_year(self):
+        temporal_dataframe = self.__df.copy(deep=True)
+        temporal_dataframe["year"] = temporal_dataframe["--YearDeposited--"].str[:4]
+        x = list(temporal_dataframe.groupby("year")["year"].count().index.values)
+        y = list(temporal_dataframe.groupby("year")["year"].count().values)
+        return [x, y]
+
+
 
 
 

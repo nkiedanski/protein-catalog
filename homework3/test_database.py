@@ -87,6 +87,13 @@ class TestDatabase(unittest.TestCase):
         quantities = [2, 1]
         self.assertEqual(Database().graph_group_by_classification(), [labels, quantities])
 
+    def test_graph_group_by_year(self):
+        alfa = Protein("3C55", "transferasa", "Homo sapiens", "2008-01-29", True, 357)
+        x = ["2004", "2008", "2013"]
+        y = [1, 2, 1]
+        Database().add_protein(alfa)
+        self.assertEqual(Database().graph_group_by_year(), [x, y])
+
 
 if __name__ == '__main__':
     unittest.main()
