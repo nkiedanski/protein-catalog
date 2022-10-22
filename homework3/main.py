@@ -1,5 +1,4 @@
 # CLASS PROTEIN
-from protein import Protein
 from catalog import Catalog
 # PROGRAM
 
@@ -11,6 +10,8 @@ def visualization(list_of_proteins, catalog_operator):
     for each_protein in list_of_proteins:
         s = s + each_protein.turn_to_string(catalog_operator.overall_max_spacing()) + "\n"
     return s
+
+def graph_
 
 
 catalog = Catalog()
@@ -55,10 +56,10 @@ while running_program:
                                                          manually_curated, atom_count)
         print("Protein added/edited")
 
-    # if activity == 5:
-    #     search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
-    #     catalog.delete_protein_if_exists(search_pdb_code)
-    #     print("Done!")
+    if activity == 5:
+        search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
+        catalog.delete_protein_if_exists(search_pdb_code)
+        print("Done!")
 
     if activity == 0:
         running_program = False

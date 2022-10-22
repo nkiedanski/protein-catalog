@@ -70,8 +70,7 @@ class Database:
         self.__df = self.__df.append(new_row, ignore_index=True)
         self.__df.to_csv("proteins.csv", sep=";", index=False, mode="w")
 
-    def delete_protein(self, protein):
-        pdb_code = protein.get_pdb_code()
+    def delete_protein(self, pdb_code):
         index_pdb_code = int(self.__df[self.__df["--PDBcode--"] == pdb_code].index.values)
         self.__df = self.__df.drop(index_pdb_code)
         self.__df.to_csv("proteins.csv", sep=";", index=False, mode="w")
