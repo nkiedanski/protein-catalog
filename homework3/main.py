@@ -4,6 +4,15 @@ from catalog import Catalog
 # PROGRAM
 
 
+def visualization(list_of_proteins, catalog_operator):
+    headers = catalog_operator.generate_headers()
+    s = headers
+    s = s + "\n"
+    for each_protein in list_of_proteins:
+        s = s + each_protein.turn_to_string(catalog_operator.overall_max_spacing()) + "\n"
+    return s
+
+
 catalog = Catalog()
 
 running_program = True
@@ -24,11 +33,11 @@ while running_program:
         print(catalog)
     if activity == 2:
         search_pdb_code = str(input("Please write the protein's PDB code: ")).upper()
-        proteins_found = catalog.search_proteins_pdb_code(search_pdb_code)
-        catalog_found = Catalog(proteins_found)
-        print(catalog_found)
+        proteins_found = catalog.retrieve_proteins_by_id(search_pdb_code)
+        print("*** Viewing proteins found ***")
+        print(visualization(proteins_found, catalog))
     if activity == 3:
-        search_name = str(input("Please write the protein's name: ")).lower()
+        search_name = str(input("Please write the protein's classification: ")).lower()
         proteins_found = catalog.search_proteins_classification(search_name)
         catalog_found = Catalog(proteins_found)
         print(catalog_found)
