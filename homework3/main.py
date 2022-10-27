@@ -1,7 +1,5 @@
-# CLASS PROTEIN
 from catalog import Catalog
 import matplotlib.pyplot as plt
-# PROGRAM
 
 
 def visualization(list_of_proteins, catalog_operator):

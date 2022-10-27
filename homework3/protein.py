@@ -43,6 +43,7 @@ class Protein:
         if type(new_value) != bool:
             raise TypeError("Value not valid. Manually curated value should be: True or False")
         self.__manually_curated = new_value
+
     def get_atom_count(self):
         return self.__atom_count
 
