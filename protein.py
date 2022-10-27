@@ -43,6 +43,7 @@ class Protein:
         if type(new_value) != bool:
             raise TypeError("Value not valid. Manually curated value should be: True or False")
         self.__manually_curated = new_value
+
     def get_atom_count(self):
         return self.__atom_count
 
@@ -78,7 +79,7 @@ class Protein:
 
     def __lt__(self, other):
         result = False
-        if other is not None and isinstance (other, Protein):
+        if other is not None and isinstance(other, Protein):
             result = self.__pdb_code < other.__pdb_code
             if self.__pdb_code == other.__pdb_code:
                 result = self.__classification < other.__classification

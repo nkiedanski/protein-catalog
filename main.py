@@ -23,16 +23,19 @@ while running_program:
     if activity == 1:
         print("*** Viewing the catalog ***")
         print(catalog)
+
     if activity == 2:
         search_pdb_code = str(input("Please write the protein's PDB code: ")).upper()
         proteins_found = catalog.search_proteins_pdb_code(search_pdb_code)
         catalog_found = Catalog(proteins_found)
         print(catalog_found)
+
     if activity == 3:
         search_name = str(input("Please write the protein's name: ")).lower()
         proteins_found = catalog.search_proteins_classification(search_name)
         catalog_found = Catalog(proteins_found)
         print(catalog_found)
+
     if activity == 4:
         pdb_code = str(input("Please write the protein's PDB code: ")).upper()
         classification = str(input("Please write the protein's name: ")).lower()
@@ -43,6 +46,7 @@ while running_program:
         protein_created = Protein(pdb_code, classification, organism, year_deposited, manually_curated, atom_count)
         catalog.add_or_edit(protein_created)
         print("Protein added/edited")
+
     if activity == 5:
         search_pdb_code = str(input("Please write the protein's PDB code you want to delete: ")).upper()
         deleted_successfully = catalog.delete_protein(search_pdb_code)
@@ -50,6 +54,7 @@ while running_program:
             print("Protein deleted")
         else:
             print("This protein is not in the catalog")
+
     if activity == 0:
         should_save = str(input("Do you want to save changes before exit? - yes/no: ")).upper()
         if should_save == "YES":

@@ -85,10 +85,6 @@ class Catalog:
             file.write(string)
         file.close()
 
-    # def add_protein(self, protein):
-    #     self.__proteins.append(protein)
-    #     return True
-
     def add_or_edit(self, search_protein):
         if search_protein not in self.__proteins:
             self.__proteins.append(search_protein)
