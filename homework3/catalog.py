@@ -34,9 +34,8 @@ class Catalog:
             self.__database.add_protein(protein)
 
     def delete_protein_if_exists(self, pdb_code):
-        if len(self.__database.retrieve_protein_id(pdb_code)) is not 0:
+        if len(self.__database.retrieve_protein_id(pdb_code)) != 0:
             self.__database.delete_protein(pdb_code)
-
 
     # other functions
 
