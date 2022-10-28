@@ -38,7 +38,7 @@ print("Complete Wine Dataset", "\n", merged_df, "\n")
 merged_df.to_csv("new_dataset.csv")
 
 
-print("------------ statistical analysis ------------ ", "\n")
+print("------------ Statistical Analysis ------------ ", "\n")
 taste_variables = ["citric acid", "residual sugar", "density", "alcohol"]
 quality_variables = ["fixed acidity", "volatile acidity", "citric acid", "residual sugar", "chlorides",
                      "total sulfur dioxide", "density", "pH", "sulphates", "alcohol"]
@@ -102,7 +102,6 @@ plt.show()
 
 
 # PLOTTING GRAPH "% OF QUALITY CATEGORY PER WINE TYPE"
-# TAKEN FROM: https://matplotlib.org/stable/gallery/lines_bars_and_markers/horizontal_barchart_distribution.html
 graph_df_white = merged_df[merged_df["type"] == "white"]["category"].value_counts()
 percentage_white = graph_df_white.values/graph_df_white.sum()*100
 graph_df_red = merged_df[merged_df["type"] == "red"]["category"].value_counts()
