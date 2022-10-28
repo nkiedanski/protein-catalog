@@ -21,16 +21,15 @@ merged_df.loc[merged_df.loc[:, "quality"] >= 7, "category"] = "high"
 merged_df.loc[merged_df.loc[:, "quality"] < 7, "category"] = "mid"
 merged_df.loc[merged_df.loc[:, "quality"] <= 3, "category"] = "low"
 
+# CONSTANT VARIABLES TO BE USED IN GRAPHS
 taste_variables = ["citric acid", "residual sugar", "density", "alcohol"]
 quality_variables = ["fixed acidity", "volatile acidity", "citric acid", "residual sugar", "chlorides",
                      "total sulfur dioxide", "density", "pH", "sulphates", "alcohol"]
-# SCALED DATAFRAME
+# SCALED DATAFRAME FO GRAPH
 scaler = MinMaxScaler()
 merged_df_scaled = scaler.fit_transform(merged_df[quality_variables].to_numpy())
 merged_df_scaled = pd.DataFrame(merged_df_scaled, columns=quality_variables)
 merged_df_scaled_complete = pd.concat([merged_df_scaled, merged_df[["quality", "type", "category"]]], axis=1)
-
-
 
 
 running_program = True
@@ -128,7 +127,7 @@ while running_program:
         percentage_white = graph_df_white.values / graph_df_white.sum() * 100
         graph_df_red = merged_df[merged_df["type"] == "red"]["category"].value_counts()
         percentage_red = graph_df_red.values / graph_df_red.sum() * 100
-        # MODIFING FLOAT TO ONE DECIMAL PLACE ONLY
+        # MODIFYING FLOAT TO ONE DECIMAL PLACE ONLY
         for index in range(0, len(percentage_white)):
             percentage_white[index] = round(percentage_white[index], 1)
             percentage_red[index] = round(percentage_red[index], 1)
@@ -140,9 +139,7 @@ while running_program:
         }
         labels = list(results.keys())
         data = np.array(list(results.values()))
-        # axis=1 because sum over columns for each of the 2 rows
         data_cum = data.cumsum(axis=1)
-        # data.shape[1] returns de quantity of columns/labels/variables to indicate number of colores (samples) needed
         category_colors = plt.colormaps['PRGn'](
             np.linspace(0, 0.77, data.shape[1]))
 
