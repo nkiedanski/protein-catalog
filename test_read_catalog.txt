@@ -1,2 +1,0 @@
-3C49|transferasa|Homo sapiens|2008-01-29|True|357
-4LTR|transport protein|Alkalilimnicola ehrlichii|2013-07-23|True|152
