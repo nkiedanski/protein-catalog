@@ -9,12 +9,15 @@ final assignments:
 - assignment 2: analysis, cleaning and reports on a dataset
 - assignment 3: putting it all together
 
-language & packages:
-- python
-- matplotlib.pyplot
+language: 
+- python 3.9
+  
+packages:
 - pandas
 - numpy
-
+- matplotlib
+- scikit-learn
+  
 ## Asignment 1: protein catalog
 
 Create a program catalog.py for managing a protein catalog, made up of a number of functions
